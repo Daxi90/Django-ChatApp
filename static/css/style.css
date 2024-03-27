@@ -1,0 +1,19 @@
+.page-content {
+  padding: 100px;
+}
+
+.color-gray {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.display-flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
