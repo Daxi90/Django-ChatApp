@@ -2,18 +2,20 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
-    
-{% for message in messages %}
-<div>
- <span class="color-gray">[{{message.created_at}}]</span> {{message.author.first_name}}: <i>{{message.text}}</i>
-</div>
-{% endfor %}
 
-<form action="/chat/" method="post">
-    {% csrf_token %}
+<div id="messageContainer">  
+  {% for message in messages %}
+  <div>
+    <span class="color-gray">[{{ message.created_at|date:"Y-m-d" }}]</span> {{ message.author.first_name }}: <i>{{ message.text }}</i>
+  </div>
+  {% endfor %}
+</div>  
+
+
+<form id="messageForm" onsubmit="sendMessage(); return false;" method="post" data-csrf-token="{{ csrf_token }}" data-user-first-name="{{ request.user.first_name }}">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input class="mdl-textfield__input" name="textmessage" type="text" id="sample3">
-      <label class="mdl-textfield__label" for="sample3">Text...</label>
+      <input class="mdl-textfield__input" name="textmessage" type="text" id="messageField">
+      <label class="mdl-textfield__label" for="messageField">Text...</label>
     </div>
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
         Send
