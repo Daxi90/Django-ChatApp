@@ -5,8 +5,14 @@
 
 <div id="messageContainer">  
   {% for message in messages %}
-  <div>
-    <span class="color-gray">[{{ message.created_at|date:"Y-m-d" }}]</span> {{ message.author.first_name }}: <i>{{ message.text }}</i>
+  <div class="chat-bubble">
+    <div class="message-info">
+      <span class="message-author">{{ message.author.first_name }}</span>
+      <span class="message-date">{{ message.created_at|date:"Y-m-d" }}</span>
+    </div>
+    <div class="message-text">
+      {{ message.text }}
+    </div>
   </div>
   {% endfor %}
 </div>  

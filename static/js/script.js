@@ -6,15 +6,21 @@ async function sendMessage() {
     const messageContainer = document.getElementById('messageContainer'); // Definiere, wo Nachrichten angezeigt werden sollen
 
     const today = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const datumAlsString = today.toLocaleDateString('en-US', options);
 
-    // Nutze `firstName` statt Django-Variable
+    // Temporäre Nachricht mit neuer Struktur
     messageContainer.innerHTML += /*html*/`
-        <div class="temp-message">
-          <span class="color-red">[${datumAlsString}] ${firstName}: <i>${messageField.value}</i></span>
+        <div class="chat-bubble idle">
+            <div class="message-info">
+                <span class="message-author">${firstName}</span>
+                <span class="message-date">${datumAlsString}</span>
+            </div>
+            <div class="message-text">
+                ${messageField.value} <span style="font-size: 8px; color: red;">(Message not saved yet)</span>
+            </div>
         </div>
-        `;
+    `;
 
     let fd = new FormData();
     fd.append('textmessage', messageField.value);
@@ -30,15 +36,22 @@ async function sendMessage() {
 
         let jsonResponse = await response.json();
         let responseJson = await JSON.parse(jsonResponse) // Dies bestätigt die Struktur der Antwort.
+
         // Entferne die temporäre Nachricht
-        document.querySelector('.temp-message').remove();
+        document.querySelector('.idle').remove(); // Achte darauf, das korrekt zu selektieren, möglicherweise musst du dies anpassen.
 
         // Füge die echte Nachricht hinzu, basierend auf der Struktur deiner Antwort
         messageContainer.innerHTML += /*html*/`
-            <div>
-              <span class="color-gray">[${responseJson.fields.created_at}]</span> ${firstName}: <i>${messageField.value}</i>
+            <div class="chat-bubble">
+                <div class="message-info">
+                    <span class="message-author">${firstName}</span>
+                    <span class="message-date">${responseJson.fields.created_at}</span>
+                </div>
+                <div class="message-text">
+                    ${messageField.value}
+                </div>
             </div>
-            `;
+        `;
 
         messageField.value = '';
 
