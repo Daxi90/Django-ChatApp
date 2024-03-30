@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.core import serializers
+from django.db import IntegrityError
+from django.core.exceptions import ValidationError
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -24,24 +27,26 @@ def index(request):
 
 def login_view(request):
     redirect = request.GET.get('next')
+
     if request.method == 'POST':
-        username = request.POST["username"]
-        password = request.POST["password"]
+        username = request.POST.get("username")
+        password = request.POST.get("password")
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)
-            # Redirect to a success page.
-            if redirect is not None:
-                return HttpResponseRedirect(request.POST.get('redirect'))
-            else:
-                return HttpResponseRedirect('/chat')
+            # Rückmeldung, dass die Anmeldung erfolgreich war
+            return JsonResponse({"success": True, "message": "Login erfolgreich."})
         else:
-            return render(request, 'auth/login.html',{'wrongPassword': True, 'redirect': redirect})
-    return render(request, 'auth/login.html', {'redirect': redirect})
+            # Rückmeldung, dass die Anmeldung nicht erfolgreich war
+            return JsonResponse({"error": "Login fehlgeschlagen. Benutzername oder Passwort ist falsch."}, status=401)
+    else:
+        # GET-Request:
+         return render(request, 'auth/login.html', {'redirect': redirect})
+        
+   
 
-from django.db import IntegrityError
-from django.core.exceptions import ValidationError
-from django.http import JsonResponse
+
 
 def register_view(request):
     redirect = request.GET.get('next')

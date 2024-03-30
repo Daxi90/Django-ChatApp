@@ -4,20 +4,23 @@
         {% if wrongPassword %}
         <p>Benutzername oder Passwort ist falsch</p>
         {% endif %}
-        <form action="/login/" method="post">
+        <form id="loginForm" onsubmit="login(); return false;" method="post" data-csrf-token="{{ csrf_token }}">
             {% csrf_token %}
             <input type="hidden" name="redirect" value="{{ redirect }}">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="sample3" name="username">
-              <label class="mdl-textfield__label" for="sample3">Username...</label>
+              <input class="mdl-textfield__input" type="text" id="username" name="username">
+              <label class="mdl-textfield__label" for="username">Username...</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="password" id="sample4" name="password">
-                <label class="mdl-textfield__label" for="sample4">Password...</label>
+                <input class="mdl-textfield__input" type="password" id="password" name="password">
+                <label class="mdl-textfield__label" for="password">Password...</label>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                Login
-            </button>
+            <div id="sendBox">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                  Login
+              </button>
+              <div id="loadingBar" class="mdl-progress mdl-js-progress mdl-progress__indeterminate hidden"></div>
+          </div>
           </form>
 
           <div class="display-flex">
