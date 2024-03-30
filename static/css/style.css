@@ -53,6 +53,8 @@
   font-size: 1rem;
 }
 
+
+
 @media (max-width: 600px) {
   .chat-bubble {
     max-width: 100%;

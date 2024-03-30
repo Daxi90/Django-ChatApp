@@ -20,6 +20,7 @@ from django.urls import path
 from chat.views import index, login_view, register_view, logout_view
 
 urlpatterns = [
+    path('', index),
     path('admin/', admin.site.urls),
     path('chat/', index),
     path('login/', login_view),
