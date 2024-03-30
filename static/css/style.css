@@ -2,27 +2,33 @@
   padding: 100px;
 }
 
+@media screen and (max-width: 500px) {
+  .page-content {
+    padding: 30px !important;
+  }
+}
+
 .color-gray {
   color: rgba(0, 0, 0, 0.4);
 }
 
-.display-flex{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
+.display-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
 }
 
-.flex-col{
+.flex-col {
   display: flex;
   flex-direction: column;
 }
 
-.color-red{
+.color-red {
   color: red;
 }
 
-.idle{
+.idle {
   background-color: #f0f0f01c !important;
 }
 
@@ -32,7 +38,7 @@
   padding: 12px;
   max-width: 80%;
   margin: 10px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
 }
@@ -43,7 +49,8 @@
   margin-bottom: 8px;
 }
 
-.message-date, .message-author {
+.message-date,
+.message-author {
   font-size: 0.8rem;
   color: #666;
 }
@@ -53,11 +60,18 @@
   font-size: 1rem;
 }
 
-
-
 @media (max-width: 600px) {
   .chat-bubble {
     max-width: 100%;
   }
 }
 
+div#sendBox {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+
+  .hidden {
+    visibility: hidden;
+  }
+}
