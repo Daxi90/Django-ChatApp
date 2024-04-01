@@ -15,6 +15,9 @@ async function sendMessage() {
             <div class="message-info">
                 <span class="message-author">${firstName}</span>
                 <span class="message-date">${datumAlsString}</span>
+                <div class="statusContainer">
+                    <span class="material-symbols-outlined sent">done</span>
+                </div>
             </div>
             <div class="message-text">
                 ${messageField.value} <span style="font-size: 8px; color: red;">(Message not saved yet)</span>
@@ -46,6 +49,10 @@ async function sendMessage() {
                 <div class="message-info">
                     <span class="message-author">${firstName}</span>
                     <span class="message-date">${responseJson.fields.created_at}</span>
+                    <div class="statusContainer">
+                        <span class="material-symbols-outlined sent">done</span>
+                        <span class="material-symbols-outlined received">done</span>
+                    </div>
                 </div>
                 <div class="message-text">
                     ${messageField.value}

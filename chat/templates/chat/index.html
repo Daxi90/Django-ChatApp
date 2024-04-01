@@ -5,10 +5,15 @@
 
 <div id="messageContainer">  
   {% for message in messages %}
-  <div class="chat-bubble">
+  <div class="chat-bubble" sender="{{ message.sender }}" receiver="{{ message.receiver }}">
     <div class="message-info">
       <span class="message-author">{{ message.author.first_name }}</span>
       <span class="message-date">{{ message.created_at|date:"Y-m-d" }}</span>
+      <div class="statusContainer">
+        <span class="material-symbols-outlined sent">done</span>
+        <span class="material-symbols-outlined received">done</span>
+      </div>
+
     </div>
     <div class="message-text">
       {{ message.text }}
