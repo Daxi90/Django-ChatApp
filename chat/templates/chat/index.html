@@ -5,13 +5,15 @@
 
 <div id="messageContainer">  
   {% for message in messages %}
-  <div class="chat-bubble" sender="{{ message.sender }}" receiver="{{ message.receiver }}">
+  <div class="chat-bubble {% if message.author == request.user %}sent-message{% else %}received-message{% endif %} " currentUser="{{ user.username }}" sender="{{ message.author }}" receiver="{{ message.receiver }}">
     <div class="message-info">
       <span class="message-author">{{ message.author.first_name }}</span>
       <span class="message-date">{{ message.created_at|date:"Y-m-d" }}</span>
       <div class="statusContainer">
+        {% if message.author == request.user %}
         <span class="material-symbols-outlined sent">done</span>
         <span class="material-symbols-outlined received">done</span>
+        {% endif %}
       </div>
 
     </div>

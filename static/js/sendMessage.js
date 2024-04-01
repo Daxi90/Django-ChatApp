@@ -11,7 +11,7 @@ async function sendMessage() {
 
     // Temporäre Nachricht mit neuer Struktur
     messageContainer.innerHTML += /*html*/`
-        <div class="chat-bubble idle">
+        <div class="chat-bubble sent-message idle">
             <div class="message-info">
                 <span class="message-author">${firstName}</span>
                 <span class="message-date">${datumAlsString}</span>
@@ -45,7 +45,7 @@ async function sendMessage() {
 
         // Füge die echte Nachricht hinzu, basierend auf der Struktur deiner Antwort
         messageContainer.innerHTML += /*html*/`
-            <div class="chat-bubble">
+            <div class="chat-bubble sent-message">
                 <div class="message-info">
                     <span class="message-author">${firstName}</span>
                     <span class="message-date">${responseJson.fields.created_at}</span>
