@@ -12,8 +12,16 @@ from django.core import serializers
 
 def create_message(request):
     print("Received data: " + request.POST['textmessage'])
-    myChat = get_object_or_404(Chat, id=1)
-    receiver = get_object_or_404(User, username='helpuser')
+    # Annahme, dass Chat ID 1 existieren sollte oder erstellt wird
+    myChat, chat_created = Chat.objects.get_or_create(id=1)
+    # Verwende get_or_create für den User
+    receiver, user_created = User.objects.get_or_create(username='helpuser')
+    
+    # Wenn der Benutzer neu erstellt wurde, können hier weitere Eigenschaften gesetzt werden
+    if user_created:
+        receiver.email = 'helpuser@example.com'  # Beispiel-E-Mail
+        receiver.set_password('defaultpassword')  # Setze ein Standardpasswort
+        receiver.save()  # Vergiss nicht zu speichern!
     
     new_message = Message.objects.create(
         text=request.POST['textmessage'],
@@ -23,7 +31,6 @@ def create_message(request):
     )
     serialized_obj = serializers.serialize('json', [new_message])
     return JsonResponse(serialized_obj[1:-1], safe=False)
-
 
 def login_user(request):
     username = request.POST.get("username")
